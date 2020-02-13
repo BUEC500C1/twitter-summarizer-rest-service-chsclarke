@@ -7,15 +7,8 @@ from textwrap import wrap
 import threading 
 
 
-numberTweets = 3
-handle = 'elonmusk'
-twitter = API.Twitter('auth/twitterAuth.json')
-status = twitter.get_user_timeline(handle, numberTweets)
-output = ""
-
-
-# generate a short video for every tweet
-def createImg(i):
+# generate a short video (slide) for every tweet
+def createSlide(i, status, handle):
     tweet = status[i].text
 
     stream = ffmpeg.input('a.jpg', pattern_type='glob', framerate=1)
@@ -30,27 +23,32 @@ def createImg(i):
     stream = ffmpeg.output(stream, 'img/movie' + str(i) + '.mp4')
     ffmpeg.run(stream)
 
-t1 = threading.Thread(target=createImg, args=(0,))
-t2 = threading.Thread(target=createImg, args=(1,))
-t3 = threading.Thread(target=createImg, args=(2,))
+#start generating slides in parallel with different threads
+def initThreads(numberTweets, status, handle):
+    threads = []
+    for i in range(0,numberTweets):
+        threads.append(threading.Thread(target=createSlide, args=(i,status, handle)))
 
-t1.start() 
-t2.start() 
-t3.start()
+    for i in range(0,numberTweets):
+        threads[i].start()
 
-t1.join() 
-t2.join()
-t3.join() 
-  
-(
+    for i in range(0,numberTweets):
+        threads[i].join() 
+
+#concatenate all slides into one video
+def concatSlides(status, numberTweets):
+    allSlides = []
+    
+    for i in range(0, numberTweets):
+        allSlides.append(ffmpeg.input('img/movie' + str(i) + '.mp4'))
+
+    (
     ffmpeg
-    .concat(ffmpeg.input('img/movie0.mp4'),
-        ffmpeg.input('img/movie1.mp4'),
-        ffmpeg.input('img/movie2.mp4'))
+    .concat(*allSlides)
     .overlay(ffmpeg.input(status[0]._json["user"]["profile_image_url_https"][:-11] + ".jpg"))
     .drawbox(0, 0, 400, 400, color='black', thickness=10)
-    #.filter('fps', fps=1, round='up')
     .output('img/out.mp4')
     .run()
-)
+    )
+
 
