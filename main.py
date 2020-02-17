@@ -86,7 +86,6 @@ def get_user_video():
         os.system('./clear.sh')
         numberTweets = 3
         handle = request.args.get('username')
-        twitter = API.Twitter('auth/twitterAuth.json')
         globalStatus = twitter.get_user_timeline(handle, numberTweets)
 
         ffmpegWrapper.initThreads(numberTweets, globalStatus, handle)
