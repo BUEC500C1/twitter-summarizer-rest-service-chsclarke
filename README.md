@@ -2,11 +2,11 @@
 
 ## Asignment
 
-__Main Exercise__:  Using the twitter feed, construct a daily video summarizing a twitter handle on a given day
+__Main Exercise__:  Using the twitter feed, construct a daily video summarizing a twitter handle on a given day.
 
-* Convert text into an image in a frame
+* Convert text into an image in a frame.
 * Do a sequence of all texts and images in chronological order.
-* Display each video frame for 3 seconds
+* Display each video frame for 3 seconds.
 
 ## Requirements 
 none! the app is containerized so there is no need
