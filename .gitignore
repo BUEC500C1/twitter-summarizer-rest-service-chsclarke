@@ -1,6 +1,0 @@
-auth/googleAuth.json
-auth/twitterAuth.json
-.gitignore
-img
-__pycache__
-OpenSansEmoji.ttf
