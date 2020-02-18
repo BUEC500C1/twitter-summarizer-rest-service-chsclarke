@@ -11,7 +11,7 @@ import threading
 def createSlide(i, status, handle, hash):
     tweet = status[i].text
 
-    stream = ffmpeg.input('a.jpg', pattern_type='glob', framerate=1)
+    stream = ffmpeg.input('imgIn/*.jpg', pattern_type='glob', framerate=1)
     stream = ffmpeg.drawtext(stream, text="@" + handle, x=450, y=100, box=1, boxborderw=10, escape_text=True, fontsize=30, font="OpenSansEmoji")
     stream = ffmpeg.drawtext(stream, text=status[i]._json["user"]["description"], x=450, y=150, box=1, boxborderw=10, escape_text=True, fontsize=30, font="OpenSansEmoji")
     stream = ffmpeg.drawtext(stream, text="Tweet: " + str(i + 1), x=450, y=300, box=1, boxborderw=10, escape_text=True, fontsize=30, font="OpenSansEmoji")
