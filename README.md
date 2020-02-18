@@ -8,8 +8,6 @@ __Main Exercise__:  Using the twitter feed, construct a daily video summarizing 
 * Do a sequence of all texts and images in chronological order.
 * Display each video frame for 3 seconds.
 
-## Requirements 
-none! the app is containerized so there is no need to install requirements.
 
 ## Installation
 
@@ -17,21 +15,14 @@ none! the app is containerized so there is no need to install requirements.
 
 Once you have your API keys, add them to the [auth](https://github.com/BUEC500C1/twitter-summarizer-chsclarke/tree/master/auth) folder. Be sure to remove `[template]` from the file names.
 
-### Build Docker image locally
+### Install dependencies
+install [ffpmeg](https://www.ffmpeg.org/).
 
-Build image from Dockerfile:  
+install python dependencies:
 
-`docker build -t <your_username>/python-endpoint .`
-
-Expose image to port 80:
-
-`docker run -p 80:5000 <your_username>/python-endpoint`
+`pip3 install -r requirements.txt`
 
 Done!
-
-### If your image breaks
-Delete all images and containers in the case of an error:  
-`docker rm -vf $(docker ps -a -q);docker rmi -f $(docker images -a -q)`
 
 ## Usage
 
