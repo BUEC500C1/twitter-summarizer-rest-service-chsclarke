@@ -20,9 +20,11 @@ Once you have your API keys, add them to the [auth](https://github.com/BUEC500C1
 ### Build Docker image locally
 
 Build image from Dockerfile:  
+
 `docker build -t <your_username>/python-endpoint .`
 
 Expose image to port 80:
+
 `docker run -p 80:5000 <your_username>/python-endpoint`
 
 Done!
