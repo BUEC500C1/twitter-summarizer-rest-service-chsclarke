@@ -9,7 +9,7 @@ __Main Exercise__:  Using the twitter feed, construct a daily video summarizing 
 * Display each video frame for 3 seconds.
 
 ## Requirements 
-none! the app is containerized so there is no need
+none! the app is containerized so there is no need to install requirements.
 
 ## Installation
 
