@@ -51,10 +51,6 @@ After getting the hash you need to make a request to a new endpoint at the given
 
 Example:
 
-http://localhost/7cb7e2c29c18460bb69f58bd6cebd59f returns,
-
-```
-movie.mp4
-```
+http://localhost/7cb7e2c29c18460bb69f58bd6cebd59f would return `movie.mp4`. This is the requested video summary of the twitter user @elonmusk.
 
 
