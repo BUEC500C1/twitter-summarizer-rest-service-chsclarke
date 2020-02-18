@@ -33,7 +33,7 @@ Delete all images and containers in the case of an error:
 
 ## Usage
 
-There is one active enpoints on the REST service `/get_video`.
+There is one active enpoint on the REST service `/get_video`.
 
 `/get_video` is an async endpoint that takes a twitter handle as an input and returns a hash.
 
