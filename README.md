@@ -46,4 +46,12 @@ Example:
 
 http://localhost/7cb7e2c29c18460bb69f58bd6cebd59f would return `movie.mp4`. This is the requested video summary of the twitter user @elonmusk.
 
+If you hit the hash endpoint before the video is done processing you will be given a status update on the videos creation.
+
+Example:
+```
+{
+  "status" : "in_progress"
+}
+```
 
