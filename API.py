@@ -3,15 +3,16 @@ import os
 import tweepy
 import json
 
-"""
-Initializes a TwitterAPI class that can acces the twitter api with the
-tweepy libaray
 
-USAGE:
-test = Twitter('../auth/twitterAuth.json')
-test.get_user_timeline('markwahlberg')
-"""
 class Twitter:
+   """
+   Initializes a TwitterAPI class that can acces the twitter api with the
+   tweepy libaray
+
+   USAGE:
+   test = Twitter('../auth/twitterAuth.json')
+   test.get_user_timeline('markwahlberg')
+   """
    def __init__(self, authKey):
       with open(authKey) as json_file:
          data = json.load(json_file)
@@ -40,14 +41,15 @@ class Twitter:
    def get_user_profile(self, status):
       return status._json["user"]
 
-"""
-Initializes a GoogleAPI class that can acces the google api
 
-USAGE:
-google = Google('../auth/key.json')
-google.get_image_description('gs://cloud-samples-data/vision/using_curl/shanghai.jpeg')
-"""
 class Google:
+   """
+   Initializes a GoogleAPI class that can acces the google api
+
+   USAGE:
+   google = Google('../auth/key.json')
+   google.get_image_description('gs://cloud-samples-data/vision/using_curl/shanghai.jpeg')
+   """
    def __init__(self, authKey):
       os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = authKey
 

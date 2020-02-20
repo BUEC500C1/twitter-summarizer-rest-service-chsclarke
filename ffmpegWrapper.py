@@ -2,13 +2,20 @@ import ffmpeg
 import API
 import json
 import re
-import time
 from textwrap import wrap
 import threading 
+import main
+import worker
 
 
-# generate a short video (slide) for every tweet
+google = API.Google('auth/googleAuth.json')
+twitter = API.Twitter('auth/twitterAuth.json')
+
+
 def createSlide(i, status, handle, hash):
+    """
+    Generate a short video (slide) for every tweet
+    """
     tweet = status[i].text
 
     stream = ffmpeg.input('imgIn/*.jpg', pattern_type='glob', framerate=1)
@@ -23,8 +30,11 @@ def createSlide(i, status, handle, hash):
     stream = ffmpeg.output(stream, 'img/' + str(hash) + "_" + str(i) + '.mp4')
     ffmpeg.run(stream)
 
-#start generating slides in parallel with different threads
+
 def initThreads(numberTweets, status, handle, hash):
+    """
+    Start generating slides in parallel with different threads
+    """
     threads = []
     for i in range(0,numberTweets):
         threads.append(threading.Thread(target=createSlide, args=(i,status, handle, hash)))
@@ -35,8 +45,11 @@ def initThreads(numberTweets, status, handle, hash):
     for i in range(0,numberTweets):
         threads[i].join() 
 
-#concatenate all slides into one video
+
 def concatSlides(status, numberTweets, hash):
+    """
+    Concatenate all slides into one video
+    """
     allSlides = []
     
     for i in range(0, numberTweets):
@@ -51,4 +64,13 @@ def concatSlides(status, numberTweets, hash):
     .run()
     )
 
+def create_video(hash, handle):
+    """
+    Generates a video based on a twitter handle
+    """
+    numberTweets = 3
+    globalStatus = twitter.get_user_timeline(handle, numberTweets)
+    initThreads(numberTweets, globalStatus, handle, hash)
+    concatSlides(globalStatus, numberTweets, hash)
+    worker.statusQueue[hash] = True
 

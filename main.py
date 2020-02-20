@@ -1,3 +1,4 @@
+from flask import render_template
 from flask import Flask
 from flask import request
 import API
@@ -7,47 +8,41 @@ import json
 import re
 from textwrap import wrap
 from flask import send_file
-import threading 
 import ffmpegWrapper
 import os
 from flask import abort
 import uuid
-import threading 
+import threading
+from threading import Thread
+from worker import workerDispatcher
+from worker import workerQ
+import worker
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../video-chsclarke/static/')
+workerDispatcherThread = Thread(target=workerDispatcher, daemon=True)
+workerDispatcherThread.start()
+worker.init()
 
-google = API.Google('auth/googleAuth.json')
-twitter = API.Twitter('auth/twitterAuth.json')
-
-queue = {}
-
-def create_video(hash, handle):
-    numberTweets = 3
-    globalStatus = twitter.get_user_timeline(handle, numberTweets)
-    ffmpegWrapper.initThreads(numberTweets, globalStatus, handle, hash)
-    ffmpegWrapper.concatSlides(globalStatus, numberTweets, hash)
-    queue[hash] = True
-    exit()
-
+"""handles all incoming requests"""
 @app.route('/<page>')
 def index(page):
     if (page == 'get_video'):
         if (request.args.get('username')):
             hash = uuid.uuid4().hex
-            queue[hash] = False
+            worker.statusQueue[hash] = False
             handle = request.args.get('username')
-            threading.Thread(target=create_video, args=(hash,handle,)).start()
-
+            workerQ.put((hash, handle))
             return {"callback" : hash}
 
         else:
             return "{\"ERROR\" : \"you must enter a username\"}"
 
-    elif (page in queue):
-        if queue[page] == True:
-            videoFile = send_file('./img/' + str(page) + '_out.mp4', attachment_filename='movie.mp4')
+    elif page in worker.statusQueue:
+        if worker.statusQueue[page] == True:
+            videoFile = send_file('./img/' + str(page) + '_out.mp4', 
+                    attachment_filename='movie.mp4')
             os.system('rm -r -f img/' + str(page) + '*')
-            del queue[page]
+            del worker.statusQueue[page]
             return videoFile
 
         else:
@@ -57,9 +52,16 @@ def index(page):
         abort(404)
 
 """handling 404 error"""
-@app.errorhandler(404) 
+@app.errorhandler(404)
 def not_found(e): 
-    return "{\"ERROR\" : \"404\"}"
+    if request.user_agent.browser in \
+        ["camino","chrome","firefox","galeon","kmeleon","konqueror",
+        "links","lynx","msie","msn","netscape","opera","safari",
+        "seamonkey","webkit" ]:
+        return render_template('404.html')
+    else:
+        return "{\"ERROR\" : \"404\"}"
+
 
 """handling 500 error"""
 @app.errorhandler(500)
