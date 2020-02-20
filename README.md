@@ -24,9 +24,11 @@ install python dependencies:
 
 Done!
 
-## Usage
+## Starting the server
 
 Start server with `$ python3 main.py`
+
+## Usage
 
 There is one active enpoint on the REST service `/get_video`.
 
@@ -57,7 +59,7 @@ Example:
 }
 ```
 
-### Testing
+## Testing
 
 Ensure you have properly reviewed the Installation instructions and have started the flask server with `$python3 main.py`.
 
