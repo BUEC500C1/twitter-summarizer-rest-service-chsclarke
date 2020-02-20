@@ -1,10 +1,22 @@
+#
+# Created on Thu Feb 20 2020
+#
+# Copyright (c) 2020 Chase Clarke cfclarke@bu.edu
+#
 import time
-import pytest
 import API
 import json
 import requests
 
-"""test imports for APIs"""
+"""
+Unit test for flask endpoint. In order for these tests to pass you must:
+- be running locally with correct google and twitter auth credentials
+- have the flask server running
+"""
+
+"""
+test imports for APIs
+"""
 def test_google_vision_API():
 	try:
 		from google.cloud import vision
@@ -22,7 +34,7 @@ def test_twitter_API():
 		assert 1 == 0
 
 """
-Test API access classes - can only be done locally as auth keys are not pushed to git
+Test API access classes
 """
 # does an api call to google return something
 def test_google_api():
@@ -34,9 +46,8 @@ def test_twitter_api():
 	twitter = API.Twitter('auth/twitterAuth.json')
 	assert twitter.get_user_timeline('markwahlberg', 1) != None
 
-
 """
-Test API endpoints - can only be done locally as auth keys are not pushed to git
+Test API endpoints
 """
 #test 404 hanlding
 def test_404_handling():

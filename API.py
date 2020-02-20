@@ -1,3 +1,8 @@
+#
+# Created on Thu Feb 20 2020
+#
+# Copyright (c) 2020 Chase Clarke cfclarke@bu.edu
+#
 from google.cloud import vision
 import os
 import tweepy
