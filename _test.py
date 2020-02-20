@@ -46,7 +46,7 @@ def test_404_handling():
 """
 Test get_video endpoint
 """
-#test /get_profile url args catch at endpoint (test with imporper input)
+#test /get_profile url args at endpoint (test with imporper input)
 def test_get_profile_url_args():
 	response = requests.get("http://localhost/get_video")
 	assert response.text == '{"ERROR" : "you must enter a username"}'
@@ -66,11 +66,11 @@ def test_loading():
 	assert json.loads(''.join(response.text))["status"] == "in_progress"
 
 #full test of async endpoints with proper input. Gets uuid from first endpont
-#and checks if a file is returned by the second endpoint after waiting for execution
+#and checks if an mp4 video file is returned by the second endpoint after waiting for execution
 #to finish
 def test_full_endpoint():
 	get_uuid = requests.get("http://localhost/get_video?username=elonmusk")
 	uuid = json.loads(''.join(get_uuid.text))["callback"]
 	time.sleep(3)
-	response = requests.head("http://localhost/" + uuid, allow_redirects=True)
-	assert response.status_code == 200
+	response = requests.get("http://localhost/" + uuid)
+	assert response.headers['Content-Type'] == 'video/mp4'
