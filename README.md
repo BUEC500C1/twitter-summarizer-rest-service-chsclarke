@@ -26,6 +26,8 @@ Done!
 
 ## Usage
 
+Start server with `$ python3 main.py`
+
 There is one active enpoint on the REST service `/get_video`.
 
 `/get_video` is an async endpoint that takes a twitter handle as an input and returns a hash.
@@ -54,4 +56,11 @@ Example:
   "status" : "in_progress"
 }
 ```
+
+### Testing
+
+Ensure you have properly reviewed the Installation instructions and have started the flask server with `$python3 main.py`.
+
+Run tests with `pytest`
+
 
