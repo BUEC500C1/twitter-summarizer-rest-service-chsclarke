@@ -12,10 +12,8 @@ import threading
 import main
 import worker
 
-
 google = API.Google('auth/googleAuth.json')
 twitter = API.Twitter('auth/twitterAuth.json')
-
 
 def createSlide(i, status, handle, hash):
     """
