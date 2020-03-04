@@ -8,7 +8,6 @@ import os
 import tweepy
 import json
 
-flask.status_code < 400
 
 class Twitter:
    """

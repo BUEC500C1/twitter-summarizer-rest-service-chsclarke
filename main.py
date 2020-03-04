@@ -23,7 +23,7 @@ from worker import workerDispatcher
 from worker import workerQ
 import worker
 
-app = Flask(__name__, template_folder='../video-chsclarke/static/')
+app = Flask(__name__, template_folder='./static/')
 workerDispatcherThread = Thread(target=workerDispatcher, daemon=True)
 workerDispatcherThread.start()
 worker.init()
