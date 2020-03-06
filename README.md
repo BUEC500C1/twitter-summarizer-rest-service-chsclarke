@@ -1,5 +1,12 @@
 # video-chsclarke 
 
+## server
+
+The server is run on an AWS EC2 instance using a nginx webserver and a gunicorn app server that serves my flask application.
+Gunicorn runs 4 instances of my app on 4 threads. It is production ready and scalable if traffic is expected to increase.
+
+Usage for the endpoint is detailed below.
+
 ## Usage
 
 There is one active enpoint on the REST service `/get_video`.
