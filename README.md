@@ -8,6 +8,7 @@ Gunicorn runs 4 instances of my app on 4 threads. It is production ready and sca
 Usage for the endpoint is detailed below.
 
 init server from ec2 instance:
+
 `$ sudo /etc/init.d/nginx restart`
 
 `$ gunicorn wsgi:app --bind 0.0.0.0:8000 --daemon`
