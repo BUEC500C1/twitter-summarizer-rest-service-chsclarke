@@ -21,7 +21,7 @@ There is one active enpoint on the REST service `/get_video`.
 
 Example: 
 
-`$ curl http://ec2-34-221-127-83.us-west-2.compute.amazonaws.com/get_video?username=elonmusk` returns, 
+`$ curl http://ec2-52-88-68-243.us-west-2.compute.amazonaws.com/get_video?username=elonmusk` returns, 
 
 ```
 {
@@ -33,7 +33,7 @@ After getting the hash you need to make a request to a new endpoint at the given
 
 Example:
 
-`$ curl http://ec2-34-221-127-83.us-west-2.compute.amazonaws.com/7cb7e2c29c18460bb69f58bd6cebd59f --output movie.mp4` will return `movie.mp4`. This is the requested video summary of the twitter user @elonmusk.
+`$ curl http://ec2-52-88-68-243.us-west-2.compute.amazonaws.com/7cb7e2c29c18460bb69f58bd6cebd59f --output movie.mp4` will return `movie.mp4`. This is the requested video summary of the twitter user @elonmusk.
 
 If you hit the hash endpoint before the video is done processing you will be given a status update on the videos creation.
 
